@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+   <style>
+            *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        #nav{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: antiquewhite;
+    margin: auto;
+    /* color: ; */
+}
+#nav a{
+    font-size: 25px;
+    color: black;
+}
+#nav img{
+    height: 70%;
+    width: 70px;
+    margin: auto 0px;
+    border: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+#nav select{
+    height: 70%;
+    width: 100px;
+    margin: auto 0px;
+}
+#nav input{
+    width: 40%;
+    height: 60px;
+    border-radius: 10px;
+    margin: auto 0px;
+    font-size: 20px;
+}
+   </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="./home.html" style="font-size: 25px;">home🏡</a>
+        <button id="home">
+            <img src="./image/Amd01 (2).png" alt="">
+            <!-- <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="./image/Amd01 (2).png" alt="Smiley" width="32" height="32"> -->
+        </button>
+        <input type="text" placeholder="search here" id="search">
+         <select name="filter" id="filter"> 
+                    <option value="">filter here</option>
+                    <option value="healthy food">healthy food</option>
+                    <option value="fast food">fast food</option>
+                    <option value="Indian food">Indian food</option>
+                    <option value="Dinner">Dinner</option>
+        </select>
+        
+        <a href="./login.html" id="login">log in</a>
+        <a href="./sign.html" id="signin">Sign in</a>
+        <a href="./cart.html" id="cart">Cart🛒</a>
+    </div>
+    <div id="container">
+        <input type="text" placeholder="Enter your good name">
+        <input type="email" placeholder="Enter your mail">
+        <input type="number" placeholder="Enter your mobile number">
+        <input type="password" placeholder="Create your unquie password">
+    </div>
+</body>
+</html>

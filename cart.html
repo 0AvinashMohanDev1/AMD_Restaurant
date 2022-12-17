@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        #nav{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: antiquewhite;
+    margin: auto;
+    /* color: ; */
+}
+#nav a{
+    font-size: 25px;
+    color: black;
+}
+#nav img{
+    height: 70%;
+    width: 70px;
+    margin: auto 0px;
+    border: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+#nav select{
+    height: 70%;
+    width: 100px;
+    margin: auto 0px;
+}
+#nav input{
+    width: 40%;
+    height: 60px;
+    border-radius: 10px;
+    margin: auto 0px;
+    font-size: 20px;
+}
+
+#container{
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto;
+
+}
+#container>div{
+    margin-top: 50px;
+    height: 500px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+#container>div img{
+    width: 100%;
+    height: 300px;
+}
+#container h2, #container h3{
+    margin: 10px 0px 10px 10px;
+}
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="./home.html" style="font-size: 25px;">home🏡</a>
+        <button id="home">
+            <img src="./image/Amd01 (2).png" alt="">
+            <!-- <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="./image/Amd01 (2).png" alt="Smiley" width="32" height="32"> -->
+        </button>
+        <input type="text" placeholder="search here" id="search">
+         <select name="filter" id="filter"> 
+                    <option value="">filter here</option>
+                    <option value="healthy food">healthy food</option>
+                    <option value="fast food">fast food</option>
+                    <option value="Indian food">Indian food</option>
+                    <option value="Dinner">Dinner</option>
+        </select>
+        
+        <a href="./login.html" id="login">log in</a>
+        <a href="./sign.html" id="signin">Sign in</a>
+        <a href="./cart.html" id="cart">Cart🛒</a>
+    </div>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    let container=document.getElementById("container");
+    let cartData=JSON.parse(localStorage.getItem("cartData"))||[];
+
+    display(cartData);
+
+    // console.log(cartData);
+
+    function display(data){
+        container.innerHTML=null;
+      data.forEach((element,index) => {
+        
+        let box=document.createElement("div");
+        let image=document.createElement("img");
+        image.setAttribute("src",element.image);
+        let Title=document.createElement("h2");
+        Title.innerText=element.Title;
+        let category=document.createElement("h3");
+        category.innerText=element.category;
+        let food=document.createElement("h3");
+        food.innerText=element.food;
+        let price=document.createElement("h2");
+        price.innerText=element.price;
+
+        let remove=document.createElement("button");
+        remove.innerHTML="Delete";
+        remove.addEventListener("click",()=>{
+            data.splice(index,1);
+            localStorage.setItem("cartData",JSON.stringify(data));
+            display(data);
+            console.log(data);
+        })
+
+        box.append(image,Title,price,category,food,remove);
+
+        container.append(box);
+    });
+}
+</script>

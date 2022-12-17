@@ -7,9 +7,13 @@ let priceSort=document.getElementById("priceSort");
 let veg=document.getElementById("veg");
 let nonVeg=document.getElementById("non-veg")
 let home=document.getElementById("home")
+let float=document.getElementById("floating");
+let search=document.getElementById("search");
 let productData=[];
+let floating=[];
 fetch1();
 footerData();
+floatFetch();
 // console.log(productData)
 filter.addEventListener("change",(e)=>{
     let input=e.target.value;
@@ -28,7 +32,15 @@ filter.addEventListener("change",(e)=>{
         display(data);
     }
 });
-
+search.addEventListener("input",()=>{
+    container.innerHTML=null;
+    let input=search.value.toLowerCase();
+    let newData=productData.filter((el)=>{
+        return el.Title.toLowerCase().includes(input);
+    });
+    console.log(newData);
+    display(newData);
+});
 veg.addEventListener("click",()=>{
     container.innerHTML=null;
     let data=productData.filter((element)=>{
@@ -62,10 +74,7 @@ nonVeg.addEventListener("click",()=>{
         display(data);
     }
 })
-home.addEventListener("click",()=>{
-    container.innerHTML=null;
-    display(productData);
-})
+
 priceSort.addEventListener("change",()=>{
     let input=priceSort.value;
     let data;
@@ -87,6 +96,47 @@ priceSort.addEventListener("change",()=>{
         display(data);
     }
 })
+console.log(floating);
+let val=0;
+setInterval(()=>{
+    let image=document.createElement("img");
+    image.setAttribute("src",floating[val]);
+    float.innerHTML=null;
+    float.append(image);
+    val++;
+    if(val===floating.length) val=0;
+},2000);
+
+function floatFetch(){
+    fetch("./float.json")
+    .then((responceData)=>{
+        return responceData.json();
+    })
+    .then((actualData)=>{
+        floating=actualData;
+        // console.log(actualData);
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+}
+
+
+
+function fetch1(){
+    fetch("./image.json")
+.then((responceData)=>{
+    return responceData.json();
+})
+.then((actualData)=>{
+    productData=actualData;
+    // console.log(productData)
+    display(actualData);
+})
+.catch((error)=>{
+    console.log(error);
+})
+}
 
 function footerData(){
     let firstBlock=document.createElement("div");
@@ -119,15 +169,25 @@ function footerData(){
     let blockBox2_1=document.createElement("h3");
     blockBox2_1.innerText="Downlode Our App";
     // let blockBox2_img11=document.createElement("button");
+    // let ancohr=document.createElement(a);
+    // ancohr.setAttribute("href","www.play.google");
+    let google=document.createElement("a");
+    google.setAttribute("href","https:play.google.com");
     let blockBox2_img1=document.createElement("img");
     blockBox2_img1.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
     blockBox2_img1.style.width="50px";
     blockBox2_img1.style.marginRight="10px";
+    google.append(blockBox2_img1);
+    // ancohr.innerText=blockBox2_img1;
     let blockBox2_img2=document.createElement("img");
     blockBox2_img2.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Apple_Store_logo.svg/2048px-Apple_Store_logo.svg.png");
     blockBox2_img2.style.width="50px";
-
-    blockBox2.append(blockBox2_1,blockBox2_img1,blockBox2_img2);
+    let apple=document.createElement("a");
+    apple.setAttribute("href","https:www.apple.com/in/store");
+    apple.append(blockBox2_img2);
+    // let div=document.createElement("div");
+    // div.append(ancohr);
+    blockBox2.append(blockBox2_1,google,apple);
     blockBox2.style.marginLeft="30px";
     firstBlock.append(blockBox1,blockBox2);
     // firstBlock.style.border="5px solid black";
@@ -141,34 +201,17 @@ function footerData(){
 
     let secondBlock=document.createElement("div");
     secondBlock.innerText="2022 Delightful Gourmet Pvt Ltd. All Rights Reserved."
-    secondBlock.style.height="150px";
-    // secondBlock.style.border="5px solid red"
-    let play=document.createElement("img");
-    play.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
-    play.style.width="50px";
-    let play1=document.createElement("a");
-    play1.setAttribute("href","http://google.com");
-    play1.innerText="google"
-    play1.style.width="50px";
-    secondBlock.append(play,play1);
-    footer.append(mainBlock1);
+    // secondBlock.style.height="150px";
+    // let a=document.createElement("a");
+    // a.setAttribute("href","https://google.com");
+    // let imgs=document.createElement("img");
+    // imgs.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
+    // imgs.style.width="50px";
+    // a.append(imgs);
+    // secondBlock.append(a);
+    footer.append(mainBlock1,secondBlock);
     // footer.style.color="red";
     
-}
-
-function fetch1(){
-    fetch("./image.json")
-.then((responceData)=>{
-    return responceData.json();
-})
-.then((actualData)=>{
-    productData=actualData;
-    // console.log(productData)
-    display(actualData);
-})
-.catch((error)=>{
-    console.log(error);
-})
 }
 
 function display(data){
@@ -190,8 +233,33 @@ function display(data){
         cart.style.height="40px";
         cart.style.backgroundColor="pink";
         cart.style.borderRadius="5px";
+        let button=document.createElement("button");
+        button.innerHTML="Add To Cart";
+        // button.style.width="70px";
+        button.style.height="30px";
+        button.addEventListener("click",()=>{
+            let cartData=JSON.parse(localStorage.getItem("cartData"))||[];
 
-        box.append(image,Title,price,category,food);
+            let isPresent=false;
+
+            for(let i=0;i<cartData.length;i++){
+                if(element.id==cartData[i].id){
+                    isPresent=true;
+                    break;
+                }
+                // console.log(i,);
+            }
+            if(isPresent===true){
+                alert("Item already added");
+            }
+            else{
+                cartData.push(element);
+                alert("Item added to cart");
+            }
+            console.log(cartData);
+            localStorage.setItem("cartData",JSON.stringify(cartData));
+        })
+        box.append(image,Title,price,category,food,button);
 
         container.append(box);
     });
