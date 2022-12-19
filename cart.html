@@ -57,7 +57,7 @@
 }
 #container>div{
     margin-top: 50px;
-    height: 500px;
+    height: 520px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
@@ -68,42 +68,65 @@
 #container h2, #container h3{
     margin: 10px 0px 10px 10px;
 }
+#total{
+    width: 90%;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
     </style>
 </head>
 <body>
     <div id="nav">
-        <a href="./home.html" style="font-size: 25px;">home🏡</a>
+        <a href="./index.html" style="font-size: 25px;">home🏡</a>
         <button id="home">
             <img src="./image/Amd01 (2).png" alt="">
-            <!-- <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="./image/Amd01 (2).png" alt="Smiley" width="32" height="32"> -->
         </button>
         <input type="text" placeholder="search here" id="search">
-         <select name="filter" id="filter"> 
-                    <option value="">filter here</option>
-                    <option value="healthy food">healthy food</option>
-                    <option value="fast food">fast food</option>
-                    <option value="Indian food">Indian food</option>
-                    <option value="Dinner">Dinner</option>
-        </select>
-        
         <a href="./login.html" id="login">log in</a>
-        <a href="./sign.html" id="signin">Sign in</a>
         <a href="./cart.html" id="cart">Cart🛒</a>
     </div>
+    <div class="total">
+        <div id="valume">Total quantity = <span id="totalvalume">0</span></div><br>
+        <div id="price">Total price = <span id="totalprice">0</span></div>
+    </div><br>
     <div id="container"></div>
 </body>
 </html>
 <script>
     let container=document.getElementById("container");
     let cartData=JSON.parse(localStorage.getItem("cartData"))||[];
-
+    let search=document.getElementById("search");
+    let home=document.getElementById("home");
+    let qprice=document.getElementById("totalprice");
+    let valume=document.getElementById("totalvalume");
     display(cartData);
 
-    // console.log(cartData);
+    valume.innerText=cartData.length;
+let sum=0;
+    cartData.forEach((element)=>{
+        sum+=element.price;
+    })
 
-    function display(data){
+    qprice.innerText=sum;
+    // console.log(cartData);
+    search.addEventListener("input",()=>{
+    container.innerHTML=null;
+    let input=search.value.toLowerCase();
+    let newData=cartData.filter((el)=>{
+        return el.Title.toLowerCase().includes(input);
+    });
+    console.log(newData);
+    display(newData);
+});
+home.addEventListener("click",()=>{
+    container.innerHTML=null;
+    display(cartData);
+})
+
+    function display(cartData){
         container.innerHTML=null;
-      data.forEach((element,index) => {
+        cartData.forEach((element,index) => {
+        console.log(element);
         
         let box=document.createElement("div");
         let image=document.createElement("img");
@@ -117,18 +140,76 @@
         let price=document.createElement("h2");
         price.innerText=element.price;
 
+        let quantity=document.createElement("div");
+
         let remove=document.createElement("button");
         remove.innerHTML="Delete";
         remove.addEventListener("click",()=>{
-            data.splice(index,1);
-            localStorage.setItem("cartData",JSON.stringify(data));
-            display(data);
-            console.log(data);
+            cartData.splice(index,1);
+            localStorage.setItem("cartData",JSON.stringify(cartData));
+            display(cartData);
+            console.log(cartData);
+            valume.innerText=cartData.length;
+
+            
         })
 
-        box.append(image,Title,price,category,food,remove);
+        let add=document.createElement("button");
+        add.setAttribute("id","add");
+        add.innerText="+";
+        add.style.height="20px";
+
+        let Qdata=document.createElement("input");
+        Qdata.setAttribute("text","number");
+        Qdata.value=0;
+        Qdata.style.width="30px"
+        let sub=document.createElement("button");
+        sub.setAttribute("id","sub");
+        sub.innerText="-";
+
+let num=0;
+        add.addEventListener("click",()=>{
+            num++;
+            Qdata.value=num;
+            element.quantity=num;
+        })
+        sub.addEventListener("click",()=>{
+            if(Qdata.value<1){
+                Qdata.value=+0;
+            }else{
+                num--;
+                Qdata.value=num;
+            }
+        })
+
+
+
+
+        if(element[Qdata]===undefined){
+            element[Qdata]=0;
+        }else{
+            element[Qdata]=Qdata.value;
+        }
+
+        console.log(element);
+
+        let sum1=0;
+            cartData.forEach((element)=>{
+             sum1+=element.price*Qdata;
+         })
+
+         qprice.innerText=sum1;
+
+
+        quantity.append(add,Qdata,sub);
+        quantity.style.display="flex";
+        quantity.style.height="20px";
+        quantity.style.margin="10px auto";
+
+        box.append(image,Title,price,category,food,quantity,remove);
 
         container.append(box);
     });
+    
 }
 </script>

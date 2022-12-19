@@ -15,6 +15,10 @@ fetch1();
 footerData();
 floatFetch();
 // console.log(productData)
+home.addEventListener("click",()=>{
+    container.innerHTML=null;
+    display(productData);
+})
 filter.addEventListener("change",(e)=>{
     let input=e.target.value;
     container.innerHTML=null;

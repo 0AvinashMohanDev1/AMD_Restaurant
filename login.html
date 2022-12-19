@@ -5,21 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
-   <style>
-            *{
-            padding: 0px;
-            margin: 0px;
-            box-sizing: border-box;
-        }
-        #nav{
+    <link rel="stylesheet" href="login.css">
+    <style>
+#nav{
     width: 100%;
     height: 70px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: antiquewhite;
+    background-color:rgba(255,255,255,0.0);
+    /* background-color: rgb(20, 20,30); */
     margin: auto;
-    /* color: ; */
 }
 #nav a{
     font-size: 25px;
@@ -45,33 +41,122 @@
     margin: auto 0px;
     font-size: 20px;
 }
-   </style>
+#filter,#filter option{
+    font-size: 15px;
+    font-weight: 600;
+}
+    </style>
 </head>
 <body>
     <div id="nav">
-        <a href="./home.html" style="font-size: 25px;">home🏡</a>
+        <a href="./index.html" style="font-size: 25px;  color: aliceblue;">home🏡</a>
         <button id="home">
             <img src="./image/Amd01 (2).png" alt="">
-            <!-- <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="./image/Amd01 (2).png" alt="Smiley" width="32" height="32"> -->
         </button>
-        <input type="text" placeholder="search here" id="search">
-         <select name="filter" id="filter"> 
-                    <option value="">filter here</option>
-                    <option value="healthy food">healthy food</option>
-                    <option value="fast food">fast food</option>
-                    <option value="Indian food">Indian food</option>
-                    <option value="Dinner">Dinner</option>
-        </select>
-        
-        <a href="./login.html" id="login">log in</a>
-        <a href="./sign.html" id="signin">Sign in</a>
-        <a href="./cart.html" id="cart">Cart🛒</a>
+        <a href="./login.html"  style="color: aliceblue;">log in</a>
     </div>
-    <div id="container">
-        <input type="text" placeholder="Enter your good name">
-        <input type="email" placeholder="Enter your mail">
-        <input type="number" placeholder="Enter your mobile number">
-        <input type="password" placeholder="Create your unquie password">
+    <div class="log-sign">
+        <div class="main" id="login">
+            <div>
+                <h2>Log in Here</h2>
+            </div>
+            <div class="register">
+                <form action="backend.php" method="get" accept-charset="utf-8" id="loginForm">
+                    <div>
+                        <label for="Name">First Name:</label><br>
+                        <input type="text" class="name" id="Name" placeholder="Enter Your First Name">
+                    </div><br>
+                    <div>
+                        <label for="email">E-mail Here:</label><br>
+                        <input type="email" id="Mail" class="name" placeholder="Enter your e-mail ">
+                    </div><br>
+                    <div>
+                        <label for="password">Create Your Password Here:</label><br>
+                        <input type="password" class="name" id="Password" placeholder="Your password here">
+                    </div><br>
+                    <div>
+                        <label for="Age">Your Age:</label><br>
+                        <input type="text" class="name" id="Age" name="Age" placeholder="How old are you?">
+                    </div><br>
+                    <div>
+                        <input type="Submit" value="Submit" id="Submit" class="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="main" id="signUp"> 
+          <div>
+            <h2>Sign up Here</h2>
+          </div>
+          <div class="register">
+            <form action="backend.php" method="get" accept-charset="utf-8" id="signup">
+                <div>
+                    <label for="Email">E-mail Here:</label><br>
+                    <input type="text" class="name" id="signEmail" placeholder="Enter your e-mail">
+                </div><br>
+                <div>
+                    <label for="Password">Password Here:</label><br>
+                    <input type="password" class="name" id="signPassword" placeholder="Enter your password">
+                </div><br>
+                <div>
+                    <input type="submit" value="submit" id="signSubmit" class="submit">
+                </div>
+            </form>
+          </div>
+        </div> 
+   
     </div>
+    
 </body>
 </html>
+<script>
+    let login=document.getElementById("loginForm");
+    let signup=document.getElementById("signup");
+    let userData=JSON.parse(localStorage.getItem("userProjectData"))||[];
+
+    login.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        let formData={
+            name:login.Name.value,
+            email:login.Mail.value,
+            password:login.Password.value,
+            age:login.Age.value
+        };
+        let ans=false;
+        userData.forEach((obj)=>{
+            if(formData.email===obj.email){
+                ans=true;
+            }
+        })
+        if(ans===true){
+            alert("e-mail already present")
+        }else{
+            alert("log in successful, You can sign up now");
+            userData.push(formData);
+            localStorage.setItem("userProjectData",JSON.stringify(userData));
+        }
+
+    })
+
+   signup.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    let user={
+        email:signup.signEmail.value,
+        password:signup.signPassword.value,
+    };
+    let result=false;
+    userData.forEach((obj)=>{
+        if(obj.email===user.email&&obj.password===user.password){
+            result=true;
+        }
+    });
+    console.log(user);
+    if(result===true){
+        window.location.href="./index.html";
+        alert("Sign in Successful");
+    }else{
+        alert("Wrong input")
+    }
+   })
+
+</script>

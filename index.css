@@ -94,10 +94,12 @@
     display: flex;
     justify-content: space-between;
     margin: 20px 0px;
+    
 }
 #shopByCategories button{
     border: 0px;
     margin: 10px;
+    cursor: pointer;
 }
 #priceSort{
     height: 30px;
