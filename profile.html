@@ -9,6 +9,7 @@
         *{
     padding: 0px;
     margin: 0px;
+    box-sizing: border-box;
 }
 #home{
     width: 100px;
@@ -28,9 +29,16 @@ body{
       /* background-image: url(https://c4.wallpaperflare.com/wallpaper/741/599/723/pizza-food-vegetables-fruit-wallpaper-preview.jpg); */
       /* background-image: url(https://c4.wallpaperflare.com/wallpaper/213/73/152/cup-coffee-beverage-tea-wallpaper-preview.jpg); */
     background-size: 100%;
-    background-repeat: repeat-y;
     color: #03f0fc;
+    font-size: 16px;
     font-family: sans-serif;
+}
+.home{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 30px;
+    font-family: sans-serif;
+    
 }
 .main{
     background-color: rgba(0,100, 0,0.3);
@@ -41,48 +49,52 @@ body{
     border-radius: 12px;
     border: 2px solid rgba(255,255,255,0.3);
 }
-/* h2{
-    margin: 8PX 4PX 20PX 52px;
-    color: white;
-} */
-/* .submit{
-    margin: 4px 4px 4px 28px;
-    width: 200px;
-    padding: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: sans-serif;
-    border-radius: 3px;
-    background-color: #03f0fc;
-    color: #fff;
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.3);
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-} */
-.register{
+
+/* .register{
     font-size: 18px;
     font-style: italic;
-}
+} */
 #data{
     margin-top: 10px;
+}
+#logout{
+    cursor: pointer;
+    height: 35px;
+    width: 70px;
+    font-size: 16px;
+    color: #03f0fc;
+    font-family: sans-serif;
+    background-color: black;
+    border-color: rgba(255,255,255,0.3);
+    border-width: 5px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
 }
     </style>
 </head>
 <body>
-    <div id="home">
-        <a href="./index.html" style="color: #03f0fc;">home🏡</a>
+    <div class="home">
+        <div >
+            <a href="./index.html" style="color: #03f0fc;font-size: 26px;">home🏡</a>
+            
+        </div>
+        <div class="home">
+            <a href="./login.html" style="color: #03f0fc;font-size: 26px;">login</a>
+        </div>
     </div>
-   <div class="main">
+    <div class="main">
     <div id="data">
         <h2>Your personal data</h2>
     </div><br>
-    <div class="register">
+<!-- <form action="backend.php" method="get" accept-charset="utf-8" id="profileForm"> -->
+    <div class="name">
         <label for="name">Name:</label><br>
-        <input type="text" class="name" placeholder="Your name here">
+        <input type="text" class="name" id="name" placeholder="Your name here">
     </div><br>
     <div class="email">
         <label for="email">e-mail:</label><br>
-        <input type="text" class="name" placeholder="Your email here">
+        <input type="text" class="name" id="email" placeholder="Your email here">
     </div><br>
     <div class="number">
         <label for="number">Mob. number:</label><br>
@@ -96,6 +108,39 @@ body{
         <label for="number">Age:</label><br>
         <input type="number" name="age" id="age" placeholder="Your age here">
     </div><br>
-   </div>
+    <div>
+        <button id="logout">Log out</button>
+    </div>
+    </div>
 </body>
 </html>
+<script>
+    let profileData=JSON.parse(localStorage.getItem("profileData"))||{};
+    let name=document.getElementById("name");
+    let email=document.getElementById("email");
+    let number=document.getElementById("number");
+    let gender=document.getElementById("gender");
+    let age=document.getElementById("age");
+    let logout=document.getElementById("logout");
+
+    if(profileData.name!==undefined){
+        name.value=profileData.name;
+    }
+    if(profileData.email!==undefined){
+        email.value=profileData.email;
+    }
+    if(profileData.gender!==undefined){
+        gender.value=profileData.gender;
+    }
+    number.value=profileData.number;
+    
+    age.value=profileData.age;
+
+    logout.addEventListener("click",()=>{
+        window.location.href="./index.html"
+        alert("log out Successfully")
+        profileData={};
+        localStorage.setItem("profileData",JSON.stringify(profileData));
+    })
+
+</script>

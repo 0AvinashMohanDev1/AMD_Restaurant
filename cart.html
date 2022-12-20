@@ -17,7 +17,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: antiquewhite;
+    background-color:antiquewhite;
     margin: auto;
     /* color: ; */
 }
@@ -27,7 +27,7 @@
 }
 #nav img{
     height: 70%;
-    width: 70px;
+    width: 60px;
     margin: auto 0px;
     border: 0px;
     font-size: 15px;
@@ -53,7 +53,8 @@
     gap: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: auto;
-
+    /* background-image: url("https://c1.wallpaperflare.com/preview/905/934/523/plate-food-dining-cuisine.jpg"); */
+    /* background-color:aqua; */
 }
 #container>div{
     margin-top: 50px;
@@ -73,6 +74,39 @@
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+.button{
+    width: 40%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0px 0px 10px 10px;
+}
+#add,#sub{
+    width: 30%;
+    height: 100%;
+    padding: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#input{
+    padding: 0%;
+    margin: 0%;
+}
+#delete{
+    background-color:rgb(240,20,20);
+    border-radius:5px;
+    border-color:red;
+    margin-left: 10px;
+}
+.total{
+    border: 1px solid red;
+   background-color: plum;
+}
+#valume, #price,#pay{
+    font-size: 20px;
+}
     </style>
 </head>
 <body>
@@ -84,10 +118,17 @@
         <input type="text" placeholder="search here" id="search">
         <a href="./login.html" id="login">log in</a>
         <a href="./cart.html" id="cart">Cart🛒</a>
+        <a href="./profile.html">🦁</a>
     </div>
     <div class="total">
-        <div id="valume">Total quantity = <span id="totalvalume">0</span></div><br>
-        <div id="price">Total price = <span id="totalprice">0</span></div>
+        <div id="valume">Total quantity = <span id="totalvalume">0</span></div>
+        <!-- <div id="totalvalume">0</div><br> -->
+        <div id="price">Total price = <span id="totalprice">0</span></div><br>
+        <div>
+            <label for="pay" style="font-size: 20px;">Total Payable bill:</label><br>
+            <div id="pay">Tax: 18% + firendShip discount: <span style="font-size: 25px;">25% =></span><span id="bill">0</span> Rs.</div>
+        </div>
+        
     </div><br>
     <div id="container"></div>
 </body>
@@ -99,8 +140,8 @@
     let home=document.getElementById("home");
     let qprice=document.getElementById("totalprice");
     let valume=document.getElementById("totalvalume");
+    let bill=document.getElementById("bill");
     display(cartData);
-
     valume.innerText=cartData.length;
 let sum=0;
     cartData.forEach((element)=>{
@@ -108,6 +149,8 @@ let sum=0;
     })
 
     qprice.innerText=sum;
+    bill.innerText=+qprice.innerText-(+qprice.innerText*(.25));
+    bill.innerText=+bill.innerText+(+bill.innerText*(.18));
     // console.log(cartData);
     search.addEventListener("input",()=>{
     container.innerHTML=null;
@@ -141,70 +184,61 @@ home.addEventListener("click",()=>{
         price.innerText=element.price;
 
         let quantity=document.createElement("div");
+        quantity.setAttribute("class","button");
 
         let remove=document.createElement("button");
         remove.innerHTML="Delete";
+        remove.setAttribute("id","delete")
+
         remove.addEventListener("click",()=>{
             cartData.splice(index,1);
             localStorage.setItem("cartData",JSON.stringify(cartData));
             display(cartData);
             console.log(cartData);
             valume.innerText=cartData.length;
-
-            
         })
 
         let add=document.createElement("button");
         add.setAttribute("id","add");
         add.innerText="+";
-        add.style.height="20px";
+        add.style.width="30px"
+        add.style.fontSize="100%";
+        
 
-        let Qdata=document.createElement("input");
-        Qdata.setAttribute("text","number");
-        Qdata.value=0;
+        let Qdata=document.createElement("h2");
+        Qdata.setAttribute("id","input");
+        Qdata.setAttribute("type","text");
+        Qdata.innerText=1;
         Qdata.style.width="30px"
+
         let sub=document.createElement("button");
         sub.setAttribute("id","sub");
         sub.innerText="-";
-
-let num=0;
+        sub.style.fontSize="100%";
+        let num=1;
         add.addEventListener("click",()=>{
             num++;
-            Qdata.value=num;
+            Qdata.innerText=num;
             element.quantity=num;
+            qprice.innerText=+qprice.innerText+element.price;
+            valume.innerText=+valume.innerText+1;
+            bill.innerText=+qprice.innerText-(+qprice.innerText*(0.25));
+            bill.innerText=+bill.innerText+(+bill.innerText*(.18));
         })
         sub.addEventListener("click",()=>{
-            if(Qdata.value<1){
-                Qdata.value=+0;
+            if(Qdata.innerText<1){
+                Qdata.innerText=+0;
             }else{
                 num--;
-                Qdata.value=num;
+                Qdata.innerText=num;
+                valume.innerText=+valume.innerText-1;
             }
+            qprice.innerText=+qprice.innerText-element.price;
+            bill.innerText=+qprice.innerText-(+qprice.innerText*(0.25));
+            bill.innerText=+bill.innerText+(+bill.innerText*(.18));
         })
 
-
-
-
-        if(element[Qdata]===undefined){
-            element[Qdata]=0;
-        }else{
-            element[Qdata]=Qdata.value;
-        }
-
-        console.log(element);
-
-        let sum1=0;
-            cartData.forEach((element)=>{
-             sum1+=element.price*Qdata;
-         })
-
-         qprice.innerText=sum1;
-
-
         quantity.append(add,Qdata,sub);
-        quantity.style.display="flex";
-        quantity.style.height="20px";
-        quantity.style.margin="10px auto";
 
         box.append(image,Title,price,category,food,quantity,remove);
 

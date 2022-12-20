@@ -3,6 +3,7 @@
     padding: 0px;
     box-sizing: border-box;
     border-radius: 10px;
+    /* background-color: rgba(0,240, 0,0.04); */
 }
 #nav1{
     display: flex;
@@ -20,19 +21,20 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
+    background-color: aliceblue;
     margin: auto;
     /* color: ; */
 }
 #nav a{
     font-size: 25px;
-    color: black;
+    /* color: black; */
 }
 #nav img{
     height: 70%;
-    width: 70px;
+    width: 60px;
     margin: auto 0px;
-    border: 0px;
+    border-color: red;
     font-size: 15px;
     cursor: pointer;
 }
@@ -58,7 +60,6 @@
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: auto;
 
 }
@@ -77,9 +78,8 @@
 }
 #footer{
     margin: 20px auto;
-    /* border: 2px dashed black; */
     padding: 30px;
-    background-color: antiquewhite;
+    background-color: rgba(0, 0, 0, 0.35);
 }
 #category{
     width: 200px;

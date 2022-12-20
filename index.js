@@ -187,7 +187,7 @@ function footerData(){
     blockBox2_img2.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Apple_Store_logo.svg/2048px-Apple_Store_logo.svg.png");
     blockBox2_img2.style.width="50px";
     let apple=document.createElement("a");
-    apple.setAttribute("href","https:www.apple.com/in/store");
+    apple.setAttribute("href","https://www.apple.com/in/store");
     apple.append(blockBox2_img2);
     // let div=document.createElement("div");
     // div.append(ancohr);
@@ -205,16 +205,8 @@ function footerData(){
 
     let secondBlock=document.createElement("div");
     secondBlock.innerText="2022 Delightful Gourmet Pvt Ltd. All Rights Reserved."
-    // secondBlock.style.height="150px";
-    // let a=document.createElement("a");
-    // a.setAttribute("href","https://google.com");
-    // let imgs=document.createElement("img");
-    // imgs.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
-    // imgs.style.width="50px";
-    // a.append(imgs);
-    // secondBlock.append(a);
+    
     footer.append(mainBlock1,secondBlock);
-    // footer.style.color="red";
     
 }
 
@@ -241,6 +233,9 @@ function display(data){
         button.innerHTML="Add To Cart";
         // button.style.width="70px";
         button.style.height="30px";
+        button.style.borderColor="red";
+        button.style.color="red";
+        button.style.backgroundColor="antiquewhite";
         button.addEventListener("click",()=>{
             let cartData=JSON.parse(localStorage.getItem("cartData"))||[];
 
