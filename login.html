@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+#nav{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color:rgba(255,255,255,0.0);
+    /* background-color: rgb(20, 20,30); */
+    margin: auto;
+}
+#nav a{
+    font-size: 25px;
+    color: black;
+}
+#nav img{
+    height: 70%;
+    width: 70px;
+    margin: auto 0px;
+    border: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+#nav select{
+    height: 70%;
+    width: 100px;
+    margin: auto 0px;
+}
+#nav input{
+    width: 40%;
+    height: 60px;
+    border-radius: 10px;
+    margin: auto 0px;
+    font-size: 20px;
+}
+#filter,#filter option{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="./index.html" style="font-size: 25px;  color: aliceblue;">home🏡</a>
+        <button id="home">
+            <!-- <img src="./image/Amd01 (2).png" alt=""> -->
+        </button>
+        <!-- <a href="./login.html"  style="color: aliceblue;">log in</a> -->
+    </div>
+    <div class="log-sign">
+        <div class="main" id="login">
+            <div>
+                <h2>Log in Here</h2>
+            </div>
+            <div class="register">
+                <form id="loginForm">
+                    <div>
+                        <label for="Name">First Name:</label><br>
+                        <input type="text" class="name" id="Name" placeholder="Enter Your First Name">
+                    </div><br>
+                    <div>
+                        <label for="email">E-mail Here:</label><br>
+                        <input type="email" id="Mail" class="name" placeholder="Enter your e-mail ">
+                    </div><br>
+                    <div>
+                        <label for="number">Your number:</label><br>
+                        <input type="number" id="Number" class="name" placeholder="Your number here">
+                    </div><br>
+                    <div>
+                        <label for="password">Create Your Password Here:</label><br>
+                        <input type="password" class="name" id="Password" placeholder="Your password here">
+                    </div><br>
+                    <div>
+                        <label for="gender">Gender:</label><br>
+                        <input type="text" id="Gender" class="name" placeholder="Your gender">
+                    </div><br>
+                    <div>
+                        <label for="Age">Your Age:</label><br>
+                        <input type="text" class="name" id="Age" name="Age" placeholder="How old are you?">
+                    </div><br>
+                    <div>
+                        <input type="Submit" value="Submit" id="Submit" class="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="main" id="signUp"> 
+          <div>
+            <h2>Sign up Here</h2>
+          </div>
+          <div class="register">
+            <form id="signup">
+                <div>
+                    <label for="Email">E-mail Here:</label><br>
+                    <input type="text" class="name" id="signEmail" placeholder="Enter your e-mail">
+                </div><br>
+                <div>
+                    <label for="Password">Password Here:</label><br>
+                    <input type="password" class="name" id="signPassword" placeholder="Enter your password">
+                </div><br>
+                <div>
+                    <input type="submit" value="submit" id="signSubmit" class="submit">
+                </div>
+            </form>
+          </div>
+        </div> 
+   
+    </div>
+    <div id="footer"></div>
+    <!-- action="backend.php" method="get" accept-charset="utf-8" -->
+</body>
+</html>
+<script>
+    let login=document.getElementById("loginForm");
+    let signup=document.getElementById("signup");
+    let UserData=JSON.parse(localStorage.getItem("userProjectData"))||[];
+    let footer=document.getElementById("footer");
+    // let UserData=[];
+    // console.log(UserData)
+    let profileData=JSON.parse(localStorage.getItem("profileData"))||{};
+    login.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        let formData={
+            name:login.Name.value,
+            email:login.Mail.value,
+            number:login.Number.value,
+            password:login.Password.value,
+            age:login.Age.value,
+            gender:login.Gender.value
+        };
+        let ans=false;
+        UserData.forEach((obj)=>{
+            if(formData.email===obj.email){
+                ans=true;
+            }
+        })
+        if(ans===true){
+            alert("e-mail already present")
+        }else{
+            alert("log in successful, You can sign up now");
+            UserData.push(formData);
+            localStorage.setItem("userProjectData",JSON.stringify(UserData));
+        }
+
+    })
+console.log(UserData);
+   signup.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    let user={
+        email:signup.signEmail.value,
+        password:signup.signPassword.value,
+    };
+    let result=false;
+    UserData.forEach((obj)=>{
+        if(obj.email===user.email&&obj.password===user.password){
+            result=true;
+            profileData={};
+            profileData=obj;
+            localStorage.setItem("profileData",JSON.stringify(profileData));
+        }
+    });
+    
+    console.log(user);
+    if(result===true){
+        window.location.href="./index.html";
+        console.log(JSON.parse(localStorage.getItem("profileData")));
+        alert("Sign in Successful");
+    }else{
+        profileData={};
+        alert("Wrong input")
+    }
+   })
+
+</script>

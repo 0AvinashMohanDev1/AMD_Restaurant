@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+            /* border-radius: 10px; */
+        }
+        #nav{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color:antiquewhite;
+    margin: 20px auto 20px auto;
+    /* color: ; */
+}
+#nav a{
+    font-size: 25px;
+    color: black;
+}
+#nav img{
+    height: 70%;
+    width: 60px;
+    margin: auto 0px;
+    border: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+#nav select{
+    height: 70%;
+    width: 100px;
+    margin: auto 0px;
+}
+#nav input{
+    width: 40%;
+    height: 60px;
+    border-radius: 10px;
+    margin: auto 0px;
+    font-size: 20px;
+}
+
+#container{
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto;
+    /* background-image: url("https://c1.wallpaperflare.com/preview/905/934/523/plate-food-dining-cuisine.jpg"); */
+    /* background-color:aqua; */
+}
+#container>div{
+    margin-top: 50px;
+    height: 520px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+#container>div img{
+    width: 100%;
+    height: 300px;
+}
+#container h2, #container h3{
+    margin: 10px 0px 10px 10px;
+}
+#total{
+    width: 90%;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.button{
+    width: 40%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0px 0px 10px 10px;
+}
+#add,#sub{
+    width: 30%;
+    height: 100%;
+    padding: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#input{
+    padding: 0%;
+    margin: 0%;
+}
+#delete{
+    background-color:rgb(240,20,20);
+    border-radius:5px;
+    border-color:red;
+    margin-left: 10px;
+}
+.total{
+    border: 1px solid red;
+   background-color: rgb(222, 192, 222);
+   padding: 10px 0px 10px 20px;
+}
+#valume, #price,#pay{
+    font-size: 20px;
+}
+#footer{
+    margin: 20px auto;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+@media screen and (min-width:300px) and (max-width:800px){
+    #container{
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+        margin: auto;
+        background-color: rgba(255, 165, 0,0.3);
+        box-sizing: border-box;
+    
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="./index.html" style="font-size: 25px;">home🏡</a>
+        <button id="home">
+            <img src="./image/Amd01 (2).png" alt="">
+        </button>
+        <input type="text" placeholder="search here" id="search">
+        <a href="./login.html" id="login">log in</a>
+        <a href="./cart.html" id="cart">Cart🛒</a>
+        <a href="./profile.html">🦁</a>
+    </div>
+    <div class="total">
+        <div id="valume">Total quantity = <span id="totalvalume">0</span></div>
+        <!-- <div id="totalvalume">0</div><br> -->
+        <div id="price">Total price = <span id="totalprice">0</span></div><br>
+        <div>
+            <label for="pay" style="font-size: 20px;">Total Payable bill:</label><br>
+            <div id="pay">Tax: 18% + firendShip discount: <span style="font-size: 25px;">25% =></span><span id="bill">0</span> Rs.</div>
+        </div>
+        <a href="./index.html">
+            <button id="now">Buy now👍</button>
+        </a>
+    </div><br>
+    <div id="container"></div>
+    <div id="footer"></div>
+</body>
+</html>
+<script>
+    let container=document.getElementById("container");
+    let cartData=JSON.parse(localStorage.getItem("cartData"))||[];
+    let search=document.getElementById("search");
+    let home=document.getElementById("home");
+    let qprice=document.getElementById("totalprice");
+    let valume=document.getElementById("totalvalume");
+    let bill=document.getElementById("bill");
+    let buynow=document.getElementById("now");
+    let footer=document.getElementById("footer");
+    buynow.addEventListener("click",()=>{
+        alert("Order placed, You are good to go😋")
+    })
+    display(cartData);
+    valume.innerText=cartData.length;
+let sum=0;
+    cartData.forEach((element)=>{
+        sum+=element.price;
+    })
+
+    qprice.innerText=sum;
+    bill.innerText=+qprice.innerText-(+qprice.innerText*(.25));
+    bill.innerText=+bill.innerText+(+bill.innerText*(.18));
+    // console.log(cartData);
+    search.addEventListener("input",()=>{
+    container.innerHTML=null;
+    let input=search.value.toLowerCase();
+    let newData=cartData.filter((el)=>{
+        return el.Title.toLowerCase().includes(input);
+    });
+    console.log(newData);
+    display(newData);
+});
+home.addEventListener("click",()=>{
+    container.innerHTML=null;
+    display(cartData);
+})
+
+    function display(cartData){
+        container.innerHTML=null;
+        cartData.forEach((element,index) => {
+        console.log(element);
+        
+        let box=document.createElement("div");
+        let image=document.createElement("img");
+        image.setAttribute("src",element.image);
+        let Title=document.createElement("h2");
+        Title.innerText=element.Title;
+        let category=document.createElement("h3");
+        category.innerText=element.category;
+        let food=document.createElement("h3");
+        food.innerText=element.food;
+        let price=document.createElement("h2");
+        price.innerText=element.price;
+
+        let quantity=document.createElement("div");
+        quantity.setAttribute("class","button");
+
+        let remove=document.createElement("button");
+        remove.innerHTML="Delete";
+        remove.setAttribute("id","delete")
+
+        remove.addEventListener("click",()=>{
+            cartData.splice(index,1);
+            localStorage.setItem("cartData",JSON.stringify(cartData));
+            display(cartData);
+            console.log(cartData);
+            valume.innerText=cartData.length;
+        })
+    
+        let add=document.createElement("button");
+        add.setAttribute("id","add");
+        add.innerText="+";
+        add.style.width="30px"
+        add.style.fontSize="100%";
+        
+
+        let Qdata=document.createElement("h2");
+        Qdata.setAttribute("id","input");
+        Qdata.setAttribute("type","text");
+        Qdata.innerText=1;
+        Qdata.style.width="30px"
+
+        let sub=document.createElement("button");
+        sub.setAttribute("id","sub");
+        sub.innerText="-";
+        sub.style.fontSize="100%";
+        let num=1;
+        add.addEventListener("click",()=>{
+            num++;
+            Qdata.innerText=num;
+            element.quantity=num;
+            qprice.innerText=+qprice.innerText+element.price;
+            valume.innerText=+valume.innerText+1;
+            bill.innerText=+qprice.innerText-(+qprice.innerText*(0.25));
+            bill.innerText=+bill.innerText+(+bill.innerText*(.18));
+        })
+        sub.addEventListener("click",()=>{
+            if(Qdata.innerText<1){
+                Qdata.innerText=+0;
+            }else{
+                num--;
+                Qdata.innerText=num;
+                valume.innerText=+valume.innerText-1;
+            }
+            qprice.innerText=+qprice.innerText-element.price;
+            bill.innerText=+qprice.innerText-(+qprice.innerText*(0.25));
+            bill.innerText=+bill.innerText+(+bill.innerText*(.18));
+        })
+
+        quantity.append(add,Qdata,sub);
+
+        box.append(image,Title,price,category,food,quantity,remove);
+
+        container.append(box);
+    });
+    
+}
+//  footer.innerHTML="hello footer";
+footerData();
+ function footerData(){
+    let firstBlock=document.createElement("div");
+    let blockBox1=document.createElement("div");
+    let ul1=document.createElement("ul");
+    let l1=document.createElement("li");
+    l1.innerText="Why AMD?";
+    l1.style.margin="10px 0px";
+    let l2=document.createElement("li");
+    l2.innerText="Refer & Earn";
+    l2.style.margin="10px 0px";
+    let l3=document.createElement("li");
+    l3.innerText="AMD Cash & Cash+";
+    l3.style.margin="10px 0px";
+    let l4=document.createElement("li");
+    l4.innerText="About Us";
+    l4.style.margin="10px 0px";
+    let l5=document.createElement("li");
+    l5.innerText="FSSAI 22000Certification";
+    l5.style.margin="10px 0px";
+    let l6=document.createElement("li");
+    l6.innerText="FSSAI Certification";
+    l6.style.margin="10px 0px";
+    ul1.append(l1,l2,l3,l4,l5,l6);
+    blockBox1.append(ul1);
+    // blockBox1.style.border="2px solid red"
+    let blockBox2=document.createElement("div");
+    // blockBox2.style.border="2px solid blue";
+    blockBox2.style.height="100%";
+    let blockBox2_1=document.createElement("h3");
+    blockBox2_1.innerText="Downlode Our App";
+    // let blockBox2_img11=document.createElement("button");
+    // let ancohr=document.createElement(a);
+    // ancohr.setAttribute("href","www.play.google");
+    let google=document.createElement("a");
+    google.setAttribute("href","https:play.google.com");
+    let blockBox2_img1=document.createElement("img");
+    blockBox2_img1.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
+    blockBox2_img1.style.width="50px";
+    blockBox2_img1.style.marginRight="10px";
+    google.append(blockBox2_img1);
+    // ancohr.innerText=blockBox2_img1;
+    let blockBox2_img2=document.createElement("img");
+    blockBox2_img2.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Apple_Store_logo.svg/2048px-Apple_Store_logo.svg.png");
+    blockBox2_img2.style.width="50px";
+    let apple=document.createElement("a");
+    apple.setAttribute("href","https://www.apple.com/in/store");
+    apple.append(blockBox2_img2);
+    // let div=document.createElement("div");
+    // div.append(ancohr);
+    blockBox2.append(blockBox2_1,google,apple);
+    blockBox2.style.marginLeft="30px";
+    firstBlock.append(blockBox1,blockBox2);
+    // firstBlock.style.border="5px solid black";
+    firstBlock.style.display="flex";
+    firstBlock.style.width="50%";
+
+    let mainBlock1=document.createElement("div");
+    
+    // mainBlock1.style.border="2px dashed brown"
+    mainBlock1.append(firstBlock)
+
+    let secondBlock=document.createElement("div");
+    secondBlock.innerText="2022 Delightful Gourmet Pvt Ltd. All Rights Reserved."
+    
+    footer.append(mainBlock1,secondBlock);
+    
+}
+
+</script>

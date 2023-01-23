@@ -1,0 +1,46 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+      background-image: url(https://c4.wallpaperflare.com/wallpaper/213/73/152/cup-coffee-beverage-tea-wallpaper-preview.jpg);
+    background-size: 100%;
+    background-repeat: repeat-y;
+    color: #03f0fc;
+    font-family: sans-serif;
+}
+.main{
+    background-color: rgba(0,100, 0,0.3);
+    display: inline-block;
+    margin: 120px 100px 100px 70px;
+    width: 270px;
+    padding: 4px 10px 10px 25px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    /*  */
+}
+h2{
+    margin: 8PX 4PX 20PX 52px;
+    color: white;
+    /* color: red; */
+}
+.submit{
+    margin: 4px 4px 4px 28px;
+    /* margin: auto; */
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: sans-serif;
+    border-radius: 3px;
+    /* background-color: rgba(255,100,0,0.8); */
+    background-color: #03f0fc;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.register{
+    font-size: 18px;
+    font-style: italic;
+}
