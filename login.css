@@ -3,15 +3,6 @@
     margin: 0px;
 }
 body{
-    /* background-image: url(https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__340.jpg); */
-    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNbk64-I9ztqbVVPmrUWV8ZlkthoAWACG-XCvCRjin1FrY63uuPOovfLEl-DzWQmytxpQ&usqp=CAU); */
-    /* background-image: url(https://wallpaperaccess.com/full/2381677.jpg); */
-    /* background-image: url(https://wallpapercave.com/wp/wp9959969.jpg); */
-    /* background-image: url(https://i.pinimg.com/originals/e1/2a/8e/e12a8ea15dc3cf40777ea8d7b01142d2.jpg); */
-    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAAWr20o23hwkwRs4rAcv_JG5KVKtnDLccug&usqp=CAU); */
-    /* background-image: url(https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2021-01/Ardor-2.1%E2%80%99s-United-Indian-Thali.jpg); */
-    /* background-image: url(https://i0.wp.com/koinstein.com/wp-content/uploads/2021/09/5d56c1ce0fd1814c98a58331_1565966798816.jpg?fit=1080%2C1080&ssl=1); */
-      /* background-image: url(https://c4.wallpaperflare.com/wallpaper/741/599/723/pizza-food-vegetables-fruit-wallpaper-preview.jpg); */
       background-image: url(https://c4.wallpaperflare.com/wallpaper/213/73/152/cup-coffee-beverage-tea-wallpaper-preview.jpg);
     background-size: 100%;
     background-repeat: repeat-y;
@@ -26,7 +17,7 @@ body{
     padding: 4px 10px 10px 25px;
     border-radius: 12px;
     border: 2px solid rgba(255,255,255,0.3);
-    
+    /*  */
 }
 h2{
     margin: 8PX 4PX 20PX 52px;

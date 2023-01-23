@@ -45,15 +45,16 @@
     font-size: 15px;
     font-weight: 600;
 }
+
     </style>
 </head>
 <body>
     <div id="nav">
         <a href="./index.html" style="font-size: 25px;  color: aliceblue;">home🏡</a>
         <button id="home">
-            <img src="./image/Amd01 (2).png" alt="">
+            <!-- <img src="./image/Amd01 (2).png" alt=""> -->
         </button>
-        <a href="./login.html"  style="color: aliceblue;">log in</a>
+        <!-- <a href="./login.html"  style="color: aliceblue;">log in</a> -->
     </div>
     <div class="log-sign">
         <div class="main" id="login">
@@ -114,6 +115,7 @@
         </div> 
    
     </div>
+    <div id="footer"></div>
     <!-- action="backend.php" method="get" accept-charset="utf-8" -->
 </body>
 </html>
@@ -121,6 +123,7 @@
     let login=document.getElementById("loginForm");
     let signup=document.getElementById("signup");
     let UserData=JSON.parse(localStorage.getItem("userProjectData"))||[];
+    let footer=document.getElementById("footer");
     // let UserData=[];
     // console.log(UserData)
     let profileData=JSON.parse(localStorage.getItem("profileData"))||{};

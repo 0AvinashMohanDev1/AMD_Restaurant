@@ -224,6 +224,7 @@ function display(data){
         let price=document.createElement("h2");
         price.innerText=element.price;
         let cart=document.createElement("button");
+        cart.setAttribute("id",'cartButton');
         cart.innerHTML="Add To Cart"
         cart.style.width="70px";
         cart.style.height="40px";
@@ -231,9 +232,8 @@ function display(data){
         cart.style.borderRadius="5px";
         let button=document.createElement("button");
         button.innerHTML="Add To Cart";
-        // button.style.width="70px";
         button.style.height="30px";
-        button.style.borderColor="red";
+        button.style.borderColor="purple";
         button.style.color="red";
         button.style.backgroundColor="antiquewhite";
         button.addEventListener("click",()=>{
@@ -258,7 +258,12 @@ function display(data){
             console.log(cartData);
             localStorage.setItem("cartData",JSON.stringify(cartData));
         })
-        box.append(image,Title,price,category,food,button);
+        button.style.marginLeft="10px";
+        let cartPage=document.createElement("a");
+        cartPage.setAttribute("href","./cart.html");
+        cartPage.innerText="Go To Cart🛒";
+        cartPage.style.marginLeft="30px"
+        box.append(image,Title,price,category,food,button,cartPage);
 
         container.append(box);
     });

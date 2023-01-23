@@ -10,6 +10,7 @@
             padding: 0px;
             margin: 0px;
             box-sizing: border-box;
+            /* border-radius: 10px; */
         }
         #nav{
     width: 100%;
@@ -18,7 +19,7 @@
     justify-content: space-around;
     align-items: center;
     background-color:antiquewhite;
-    margin: auto;
+    margin: 20px auto 20px auto;
     /* color: ; */
 }
 #nav a{
@@ -102,10 +103,28 @@
 }
 .total{
     border: 1px solid red;
-   background-color: plum;
+   background-color: rgb(222, 192, 222);
+   padding: 10px 0px 10px 20px;
 }
 #valume, #price,#pay{
     font-size: 20px;
+}
+#footer{
+    margin: 20px auto;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+@media screen and (min-width:300px) and (max-width:800px){
+    #container{
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+        margin: auto;
+        background-color: rgba(255, 165, 0,0.3);
+        box-sizing: border-box;
+    
+    }
 }
     </style>
 </head>
@@ -128,9 +147,12 @@
             <label for="pay" style="font-size: 20px;">Total Payable bill:</label><br>
             <div id="pay">Tax: 18% + firendShip discount: <span style="font-size: 25px;">25% =></span><span id="bill">0</span> Rs.</div>
         </div>
-        
+        <a href="./index.html">
+            <button id="now">Buy now👍</button>
+        </a>
     </div><br>
     <div id="container"></div>
+    <div id="footer"></div>
 </body>
 </html>
 <script>
@@ -141,6 +163,11 @@
     let qprice=document.getElementById("totalprice");
     let valume=document.getElementById("totalvalume");
     let bill=document.getElementById("bill");
+    let buynow=document.getElementById("now");
+    let footer=document.getElementById("footer");
+    buynow.addEventListener("click",()=>{
+        alert("Order placed, You are good to go😋")
+    })
     display(cartData);
     valume.innerText=cartData.length;
 let sum=0;
@@ -197,7 +224,7 @@ home.addEventListener("click",()=>{
             console.log(cartData);
             valume.innerText=cartData.length;
         })
-
+    
         let add=document.createElement("button");
         add.setAttribute("id","add");
         add.innerText="+";
@@ -246,4 +273,74 @@ home.addEventListener("click",()=>{
     });
     
 }
+//  footer.innerHTML="hello footer";
+footerData();
+ function footerData(){
+    let firstBlock=document.createElement("div");
+    let blockBox1=document.createElement("div");
+    let ul1=document.createElement("ul");
+    let l1=document.createElement("li");
+    l1.innerText="Why AMD?";
+    l1.style.margin="10px 0px";
+    let l2=document.createElement("li");
+    l2.innerText="Refer & Earn";
+    l2.style.margin="10px 0px";
+    let l3=document.createElement("li");
+    l3.innerText="AMD Cash & Cash+";
+    l3.style.margin="10px 0px";
+    let l4=document.createElement("li");
+    l4.innerText="About Us";
+    l4.style.margin="10px 0px";
+    let l5=document.createElement("li");
+    l5.innerText="FSSAI 22000Certification";
+    l5.style.margin="10px 0px";
+    let l6=document.createElement("li");
+    l6.innerText="FSSAI Certification";
+    l6.style.margin="10px 0px";
+    ul1.append(l1,l2,l3,l4,l5,l6);
+    blockBox1.append(ul1);
+    // blockBox1.style.border="2px solid red"
+    let blockBox2=document.createElement("div");
+    // blockBox2.style.border="2px solid blue";
+    blockBox2.style.height="100%";
+    let blockBox2_1=document.createElement("h3");
+    blockBox2_1.innerText="Downlode Our App";
+    // let blockBox2_img11=document.createElement("button");
+    // let ancohr=document.createElement(a);
+    // ancohr.setAttribute("href","www.play.google");
+    let google=document.createElement("a");
+    google.setAttribute("href","https:play.google.com");
+    let blockBox2_img1=document.createElement("img");
+    blockBox2_img1.setAttribute("src","https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/hero-image.fill.size_1200x1200.v1623363034.jpg");
+    blockBox2_img1.style.width="50px";
+    blockBox2_img1.style.marginRight="10px";
+    google.append(blockBox2_img1);
+    // ancohr.innerText=blockBox2_img1;
+    let blockBox2_img2=document.createElement("img");
+    blockBox2_img2.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Apple_Store_logo.svg/2048px-Apple_Store_logo.svg.png");
+    blockBox2_img2.style.width="50px";
+    let apple=document.createElement("a");
+    apple.setAttribute("href","https://www.apple.com/in/store");
+    apple.append(blockBox2_img2);
+    // let div=document.createElement("div");
+    // div.append(ancohr);
+    blockBox2.append(blockBox2_1,google,apple);
+    blockBox2.style.marginLeft="30px";
+    firstBlock.append(blockBox1,blockBox2);
+    // firstBlock.style.border="5px solid black";
+    firstBlock.style.display="flex";
+    firstBlock.style.width="50%";
+
+    let mainBlock1=document.createElement("div");
+    
+    // mainBlock1.style.border="2px dashed brown"
+    mainBlock1.append(firstBlock)
+
+    let secondBlock=document.createElement("div");
+    secondBlock.innerText="2022 Delightful Gourmet Pvt Ltd. All Rights Reserved."
+    
+    footer.append(mainBlock1,secondBlock);
+    
+}
+
 </script>
